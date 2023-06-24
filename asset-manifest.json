@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.js": "/static/js/main.bb657c2c.js",
+    "static/js/787.1b2dfe79.chunk.js": "/static/js/787.1b2dfe79.chunk.js",
+    "static/media/icons8-scuba-pressure-gauge-100.svg": "/static/media/icons8-scuba-pressure-gauge-100.bbd703a2ad4740478c59d1d778bbc81f.svg",
+    "static/media/icons8-scuba-diving-100.svg": "/static/media/icons8-scuba-diving-100.3b63eaa6484a10752755e74a02fea3f2.svg",
+    "static/media/icons8-scuba-tank-100.svg": "/static/media/icons8-scuba-tank-100.acedc084500487a70a5ec59634d1dced.svg",
+    "index.html": "/index.html",
+    "main.bb657c2c.js.map": "/static/js/main.bb657c2c.js.map",
+    "787.1b2dfe79.chunk.js.map": "/static/js/787.1b2dfe79.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.bb657c2c.js"
+  ]
+}
