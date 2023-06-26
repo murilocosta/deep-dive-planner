@@ -2,6 +2,7 @@
   "name": "deep-dive-planner",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://murilocosta.github.io/deep-dive-planner",
   "dependencies": {
     "@chakra-ui/react": "^2.7.1",
     "@emotion/react": "^11.11.1",
