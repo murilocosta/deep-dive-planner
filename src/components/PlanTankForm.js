@@ -3,18 +3,22 @@ import {
   ButtonGroup,
   FormControl,
   FormLabel,
-  HStack,
   Heading,
   Input,
   InputGroup,
   InputRightAddon,
+  Stat,
+  StatGroup,
+  StatLabel,
+  StatNumber,
   VStack
 } from "@chakra-ui/react";
 import React, { useContext, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { calculateUsableGas } from "../services/calculation";
 import { RootStateContext, RootStateDispatchContext } from '../state/RootStateContext';
+import RootStepper from "./RootStepper";
 
 function PlanTankForm() {
   const navigateTo = useNavigate();
@@ -26,16 +30,18 @@ function PlanTankForm() {
   const [fillPresure, setFillPresure] = useState(planTank.fillPresure);
   const [reservePresure, setReservePresure] = useState(planTank.reservePresure);
 
-  const usableGas = useMemo(() => {
-    return calculateUsableGas(fillPresure, reservePresure, cylinderCapacity);
-  }, [
-    cylinderCapacity,
-    fillPresure,
-    reservePresure,
-  ]);
+  const usableGas = useMemo(
+    () => calculateUsableGas(fillPresure, reservePresure, cylinderCapacity),
+    [
+      cylinderCapacity,
+      fillPresure,
+      reservePresure,
+    ],
+  );
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     dispatch({
       type: 'planTank/setTank',
       payload: {
@@ -46,15 +52,35 @@ function PlanTankForm() {
         reserveGas: cylinderCapacity * reservePresure,
       },
     });
-    navigateTo("/");
+
+    dispatch({
+      type: 'navigation/setPage',
+      payload: 1,
+    });
+
+    navigateTo('/air-consumption');
   }
 
   return (
     <form onSubmit={handleSubmit}>
+      <RootStepper />
+
       <VStack align={'left'} spacing={10}>
         <Heading as='h2' size='md'>Tank Configuration</Heading>
 
-        <HStack>
+        <StatGroup>
+          <Stat textColor={'blue.500'}>
+            <StatLabel>{'Usable Gas Volume'}</StatLabel>
+            <StatNumber>{usableGas || 0} l</StatNumber>
+          </Stat>
+
+          <Stat textColor={'orange.500'}>
+            <StatLabel>{'Reserve Gas Volume'}</StatLabel>
+            <StatNumber>{(cylinderCapacity * reservePresure) || 0} l</StatNumber>
+          </Stat>
+        </StatGroup>
+
+        <VStack spacing={10}>
           <FormControl>
             <FormLabel>Cylinder Capacity</FormLabel>
             <InputGroup>
@@ -64,7 +90,7 @@ function PlanTankForm() {
                 value={cylinderCapacity}
                 onChange={(e) => setCylinderCapacity(e.target.value)}
               />
-              <InputRightAddon children='liters' />
+              <InputRightAddon children='l' />
             </InputGroup>
           </FormControl>
 
@@ -93,30 +119,11 @@ function PlanTankForm() {
               <InputRightAddon children='bar' />
             </InputGroup>
           </FormControl>
-        </HStack>
+        </VStack>
 
-        <HStack>
-          <FormControl>
-            <FormLabel>Usable Gas Volume</FormLabel>
-            <InputGroup>
-              <Input
-                readOnly
-                variant='filled'
-                type='number'
-                name='usableGas'
-                value={usableGas}
-              />
-              <InputRightAddon children='liters' />
-            </InputGroup>
-          </FormControl>
-        </HStack>
-
-        <HStack>
-          <ButtonGroup variant={"outline"}>
-            <Button as={Link} to='/'>Back</Button>
-            <Button colorScheme='purple' type="submit">Confirm</Button>
-          </ButtonGroup>
-        </HStack>
+        <ButtonGroup variant={"outline"}>
+          <Button colorScheme='purple' type="submit">Confirm Tank</Button>
+        </ButtonGroup>
       </VStack>
     </form>
   );
