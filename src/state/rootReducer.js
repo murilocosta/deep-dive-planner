@@ -88,6 +88,9 @@ export function rootReducer(rootState, action) {
         },
       };
 
+    case 'rootState/reset':
+      return initialState;
+
     default:
       return rootState;
   }
