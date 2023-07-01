@@ -1,28 +1,28 @@
 import { Stat, StatGroup, StatLabel, StatNumber } from "@chakra-ui/react";
 import React from "react";
 
-function PlanDiveAirStatus({ gasStatus }) {
-  const { available = 0, used = 0 } = gasStatus;
+function DivePlanAirStatus({ gasStatus }) {
+  const { available, used = 0 } = gasStatus;
   const remaining = available - used;
 
   return (
     <StatGroup>
       <Stat>
         <StatLabel>{'Gas Available'}</StatLabel>
-        <StatNumber>{(available || 0)}</StatNumber>
+        <StatNumber>{(available || 0).toFixed(2)} l</StatNumber>
       </Stat>
 
       <Stat textColor={'orange.500'}>
         <StatLabel>{'Gas Used'}</StatLabel>
-        <StatNumber>{used}</StatNumber>
+        <StatNumber>{used.toFixed(2)} l</StatNumber>
       </Stat>
 
       <Stat textColor={'green.500'}>
         <StatLabel>{'Gas Remaining'}</StatLabel>
-        <StatNumber>{remaining}</StatNumber>
+        <StatNumber>{remaining.toFixed(2)} l</StatNumber>
       </Stat>
     </StatGroup>
   );
 }
 
-export default PlanDiveAirStatus;
+export default DivePlanAirStatus;

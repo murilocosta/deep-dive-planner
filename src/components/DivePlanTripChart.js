@@ -1,7 +1,7 @@
 import React from "react";
 import ReactECharts from 'echarts-for-react';
 
-function PlanDiveTripDisplay({ trips }) {
+function DivePlanTripChart({ trips }) {
   const xAxis = [0];
   const yAxis = [0];
   
@@ -80,4 +80,4 @@ function PlanDiveTripDisplay({ trips }) {
   );
 }
 
-export default PlanDiveTripDisplay;
+export default DivePlanTripChart;
