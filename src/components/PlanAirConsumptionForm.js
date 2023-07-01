@@ -13,6 +13,7 @@ import {
   StatNumber,
   VStack
 } from "@chakra-ui/react";
+import { ArrowBackIcon, CheckIcon } from "@chakra-ui/icons";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -104,6 +105,7 @@ function PlanAirConsumptionForm() {
           <InputGroup>
             <Input
               type='number'
+              min={0}
               name='pressureGaugeStart'
               value={pressureGaugeStart}
               onChange={(e) => setPressureGaugeStart(e.target.value)}
@@ -117,6 +119,7 @@ function PlanAirConsumptionForm() {
           <InputGroup>
             <Input
               type='number'
+              min={0}
               name='pressureGaugeEnd'
               value={pressureGaugeEnd}
               onChange={(e) => setPressureGaugeEnd(e.target.value)}
@@ -129,7 +132,9 @@ function PlanAirConsumptionForm() {
           <FormLabel>Average Dive Depth</FormLabel>
           <InputGroup>
             <Input
-              type='number'
+              type='decimal'
+              min={0}
+              step={1}
               name='averageDepth'
               value={averageDepth}
               onChange={(e) => setAverageDepth(e.target.value)}
@@ -142,7 +147,9 @@ function PlanAirConsumptionForm() {
           <FormLabel>Total Dive Time</FormLabel>
           <InputGroup>
             <Input
-              type='number'
+              type='decimal'
+              min={0}
+              step={1}
               name='totalDiveTime'
               value={totalDiveTime}
               onChange={(e) => setTotalDiveTime(e.target.value)}
@@ -159,8 +166,8 @@ function PlanAirConsumptionForm() {
         </StatGroup>
 
         <ButtonGroup variant={"outline"}>
-          <Button onClick={handleNavigation}>Back</Button>
-          <Button colorScheme='purple' type="submit">Confirm Air Consumption</Button>
+          <Button leftIcon={<ArrowBackIcon />} onClick={handleNavigation}>Back</Button>
+          <Button leftIcon={<CheckIcon />} colorScheme='purple' type="submit">Confirm Air Consumption</Button>
         </ButtonGroup>
       </VStack>
     </form>

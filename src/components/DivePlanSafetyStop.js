@@ -13,6 +13,7 @@ import {
   StatNumber,
   VStack
 } from "@chakra-ui/react";
+import { TimeIcon } from "@chakra-ui/icons";
 import React, { useContext, useMemo, useState } from "react";
 
 import { calculateGasConsumptionBar, calculateGasConsumptionLiter } from "../services/calculation";
@@ -70,6 +71,7 @@ function DivePlanSafetyStop({ targetDepth }) {
           <InputGroup>
             <Input
               type='number'
+              min={0}
               name='safetyStopDuration'
               value={safetyStopDuration}
               onChange={(e) => setSafetyStopDuration(e.target.value)}
@@ -91,7 +93,7 @@ function DivePlanSafetyStop({ targetDepth }) {
         </StatGroup>
 
         <ButtonGroup variant={"outline"} alignSelf={"flex-end"}>
-          <Button colorScheme='green' type='submit'>Update Safety Stop</Button>
+          <Button leftIcon={<TimeIcon />} colorScheme='green' type='submit'>Update Safety Stop</Button>
         </ButtonGroup>
       </VStack>
     </form>

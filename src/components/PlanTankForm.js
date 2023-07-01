@@ -13,6 +13,7 @@ import {
   StatNumber,
   VStack
 } from "@chakra-ui/react";
+import { CheckIcon } from "@chakra-ui/icons";
 import React, { useContext, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -86,6 +87,7 @@ function PlanTankForm() {
             <InputGroup>
               <Input
                 type='number'
+                min={0}
                 name='cylinderCapacity'
                 value={cylinderCapacity}
                 onChange={(e) => setCylinderCapacity(e.target.value)}
@@ -99,6 +101,7 @@ function PlanTankForm() {
             <InputGroup>
               <Input
                 type='number'
+                min={0}
                 name='fillPresure'
                 value={fillPresure}
                 onChange={(e) => setFillPresure(e.target.value)}
@@ -112,6 +115,7 @@ function PlanTankForm() {
             <InputGroup>
               <Input
                 type='number'
+                min={0}
                 name='reservePresure'
                 value={reservePresure}
                 onChange={(e) => setReservePresure(e.target.value)}
@@ -122,7 +126,7 @@ function PlanTankForm() {
         </VStack>
 
         <ButtonGroup variant={"outline"}>
-          <Button colorScheme='purple' type="submit">Confirm Tank</Button>
+          <Button leftIcon={<CheckIcon />} colorScheme='purple' type="submit">Confirm Tank</Button>
         </ButtonGroup>
       </VStack>
     </form>

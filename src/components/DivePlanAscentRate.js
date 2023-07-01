@@ -13,6 +13,7 @@ import {
   StatNumber,
   VStack
 } from "@chakra-ui/react";
+import { TimeIcon } from "@chakra-ui/icons";
 import React, { useContext, useMemo, useState } from "react";
 
 import { calculateRMV } from "../services/calculation";
@@ -24,19 +25,21 @@ function DivePlanAscentRate({ targetDepth }) {
 
   const [ascentRate, setAscentRate] = useState(planDive.ascentRate);
 
+  const depth = useMemo(() => Math.max(0, targetDepth - 5), [targetDepth])
+
   const rmv = useMemo(
-    () => calculateRMV(planAirConsumption.sac, targetDepth - 5),
+    () => calculateRMV(planAirConsumption.sac, depth),
     [
       planAirConsumption,
-      targetDepth,
+      depth,
     ]
   );
 
   const ascentDuration = useMemo(
-    () => (targetDepth - 5) / ascentRate,
+    () => depth / ascentRate,
     [
+      depth,
       ascentRate,
-      targetDepth,
     ]
   );
 
@@ -75,6 +78,7 @@ function DivePlanAscentRate({ targetDepth }) {
           <InputGroup>
             <Input
               type='number'
+              min={0}
               name='ascentRate'
               value={ascentRate}
               onChange={(e) => setAscentRate(e.target.value)}
@@ -101,7 +105,7 @@ function DivePlanAscentRate({ targetDepth }) {
         </StatGroup>
 
         <ButtonGroup variant={"outline"} alignSelf={"flex-end"}>
-          <Button colorScheme='green' type="submit">Update Ascent</Button>
+          <Button leftIcon={<TimeIcon />} colorScheme='green' type="submit">Update Ascent</Button>
         </ButtonGroup>
       </VStack>
     </form>

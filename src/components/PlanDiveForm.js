@@ -1,6 +1,7 @@
 import {
   Button,
   ButtonGroup,
+  Divider,
   FormControl,
   FormLabel,
   Heading,
@@ -10,6 +11,7 @@ import {
   VStack,
   useDisclosure
 } from "@chakra-ui/react";
+import { AddIcon, ArrowBackIcon, CheckIcon, SettingsIcon } from "@chakra-ui/icons";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -32,7 +34,7 @@ function PlanDiveForm() {
   useEffect(
     () => {
       if (planTank.usableGas == null) {
-        navigateTo("/tank-setup");
+        navigateTo('/tank-setup');
       }
     },
     [planTank, navigateTo]
@@ -42,15 +44,17 @@ function PlanDiveForm() {
   const [targetDepthDuration, setTargetDepthDuration] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const wholeDive = useMemo(
-    () => buildWholeDive(planDive),
-    [
-      planDive,
-    ]
-  );
+  const wholeDive = useMemo(() => buildWholeDive(planDive), [planDive]);
 
   const gasConsumed = useMemo(() => {
     const calculateTotal = (total, current) => total + Number(current.gasUsed);
+    return wholeDive.reduce(calculateTotal, 0);
+  }, [
+    wholeDive,
+  ]);
+
+  const totalDiveTime = useMemo(() => {
+    const calculateTotal = (total, current) => total + Number(current.duration);
     return wholeDive.reduce(calculateTotal, 0);
   }, [
     wholeDive,
@@ -64,7 +68,7 @@ function PlanDiveForm() {
       payload: 1,
     });
 
-    navigateTo("/air-consumption");
+    navigateTo('/air-consumption');
   }
 
   const handleAddTrip = (event) => {
@@ -84,7 +88,12 @@ function PlanDiveForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    navigateTo("/show-dive-plan");
+    dispatch({
+      type: 'navigation/setPage',
+      payload: 3,
+    });
+
+    navigateTo('/show-dive-plan');
   }
 
   return (
@@ -92,7 +101,14 @@ function PlanDiveForm() {
       <RootStepper />
 
       <VStack align={'left'} spacing={10}>
-        <DivePlanAirStatus gasStatus={{ available: planTank.usableGas, used: gasConsumed }} />
+        <DivePlanAirStatus
+          gasStatus={{
+            available: planTank.usableGas,
+            reserve: planTank.reserveGas,
+            used: gasConsumed,
+            totalDiveTime: totalDiveTime
+          }}
+        />
 
         <Heading as='h2' size='md'>Dive Trip</Heading>
 
@@ -100,7 +116,9 @@ function PlanDiveForm() {
           <FormLabel>Target Depth</FormLabel>
           <InputGroup>
             <Input
-              type='number'
+              type='decimal'
+              min={0}
+              step={1}
               name='targetDepth'
               value={targetDepth}
               onChange={(e) => setTargetDepth(e.target.value)}
@@ -114,6 +132,7 @@ function PlanDiveForm() {
           <InputGroup>
             <Input
               type='number'
+              min={0}
               name='targetDepthDuration'
               value={targetDepthDuration}
               onChange={(e) => setTargetDepthDuration(e.target.value)}
@@ -124,20 +143,26 @@ function PlanDiveForm() {
 
         <DivePlanRMV targetDepth={targetDepth} gasConsumed={gasConsumed} />
 
-        <ButtonGroup variant={"outline"} alignSelf={"flex-end"}>
-          <Button colorScheme='green' onClick={onOpen}>Manage Trips</Button>
-          <Button colorScheme='green' onClick={handleAddTrip}>Add Trip</Button>
+        <ButtonGroup variant={'outline'} alignSelf={'flex-end'}>
+          <Button leftIcon={<SettingsIcon />} onClick={onOpen}>Manage Trips</Button>
+          <Button leftIcon={<AddIcon />} colorScheme='green' onClick={handleAddTrip}>Add Trip</Button>
         </ButtonGroup>
 
         <DivePlanTripManager isOpen={isOpen} onClose={onClose} trips={planDive.trips} />
 
+        <Divider />
+
         <DivePlanAscentRate targetDepth={targetDepth} />
+
+        <Divider />
 
         <DivePlanSafetyStop targetDepth={5} />
 
-        <ButtonGroup variant={"outline"}>
-          <Button onClick={handleNavigation}>Back</Button>
-          <Button colorScheme='purple' onClick={handleSubmit}>Confirm Dive Plan</Button>
+        <Divider />
+
+        <ButtonGroup variant={'outline'}>
+          <Button leftIcon={<ArrowBackIcon />} onClick={handleNavigation}>Back</Button>
+          <Button leftIcon={<CheckIcon />} colorScheme='purple' onClick={handleSubmit}>Confirm Dive Plan</Button>
         </ButtonGroup>
       </VStack>
     </>

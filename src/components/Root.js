@@ -20,7 +20,9 @@ function Root() {
           <Heading>{'Deep Dive Planner v1'}</Heading>
           <ColorModeSwitcher />
         </HStack>
+
         <Divider marginBottom={10} />
+        
         <RootStateProvider>
           <Outlet />
         </RootStateProvider>
