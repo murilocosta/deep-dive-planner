@@ -1,10 +1,10 @@
 import { createHashRouter } from 'react-router-dom';
 
-import Dashboard from './components/Dashboard'
 import PlanAirConsumptionForm from './components/PlanAirConsumptionForm';
 import PlanDiveForm from './components/PlanDiveForm';
 import PlanTankForm from './components/PlanTankForm';
 import Root from './components/Root';
+import ShowDivePlan from './components/ShowDivePlan';
 
 export default createHashRouter([
   {
@@ -12,11 +12,7 @@ export default createHashRouter([
     element: <Root />,
     children: [
       {
-        path: '',
-        element: <Dashboard />
-      },
-      {
-        path: 'tank-setup',
+        path: 'tank-setup?',
         element: <PlanTankForm />
       },
       {
@@ -26,6 +22,10 @@ export default createHashRouter([
       {
         path: 'dive-plan',
         element: <PlanDiveForm />
+      },
+      {
+        path: 'show-dive-plan',
+        element: <ShowDivePlan />
       }
     ],
   },
