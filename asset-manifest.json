@@ -1,15 +1,12 @@
 {
   "files": {
-    "main.js": "/deep-dive-planner/static/js/main.6061ca36.js",
+    "main.js": "/deep-dive-planner/static/js/main.82fd1248.js",
     "static/js/787.1b2dfe79.chunk.js": "/deep-dive-planner/static/js/787.1b2dfe79.chunk.js",
-    "static/media/icons8-scuba-pressure-gauge-100.svg": "/deep-dive-planner/static/media/icons8-scuba-pressure-gauge-100.381d054f593009f8e869b3aabe485833.svg",
-    "static/media/icons8-scuba-diving-100.svg": "/deep-dive-planner/static/media/icons8-scuba-diving-100.a16c10423454b3351bc65d848315be56.svg",
-    "static/media/icons8-scuba-tank-100.svg": "/deep-dive-planner/static/media/icons8-scuba-tank-100.11fbaec8fa7131cdeeb6682bdbb500fa.svg",
     "index.html": "/deep-dive-planner/index.html",
-    "main.6061ca36.js.map": "/deep-dive-planner/static/js/main.6061ca36.js.map",
+    "main.82fd1248.js.map": "/deep-dive-planner/static/js/main.82fd1248.js.map",
     "787.1b2dfe79.chunk.js.map": "/deep-dive-planner/static/js/787.1b2dfe79.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.6061ca36.js"
+    "static/js/main.82fd1248.js"
   ]
 }
