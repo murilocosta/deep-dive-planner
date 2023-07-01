@@ -9,7 +9,6 @@ import {
   ModalHeader,
   ModalOverlay,
   Table,
-  TableCaption,
   TableContainer,
   Tbody,
   Td,

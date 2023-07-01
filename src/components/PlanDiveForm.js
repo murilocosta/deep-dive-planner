@@ -35,7 +35,7 @@ function PlanDiveForm() {
         navigateTo("/tank-setup");
       }
     },
-    [planTank]
+    [planTank, navigateTo]
   );
 
   const [targetDepth, setTargetDepth] = useState(0);

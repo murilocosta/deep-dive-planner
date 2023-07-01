@@ -32,7 +32,7 @@ function PlanAirConsumptionForm() {
         navigateTo("/tank-setup");
       }
     },
-    [planTank]
+    [planTank, navigateTo]
   );
 
   const [pressureGaugeStart, setPressureGaugeStart] = useState(planAirConsumption.pressureGaugeStart);
