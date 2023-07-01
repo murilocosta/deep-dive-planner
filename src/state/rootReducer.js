@@ -1,4 +1,7 @@
 export const initialState = {
+  navigation: {
+    activePage: 0,
+  },
   planTank: {
     cylinderCapacity: 10,
     fillPresure: 200,
@@ -14,14 +17,23 @@ export const initialState = {
     sac: null,
   },
   planDive: {
-    safetyStopDuration: 3,
-    rmv: null,
     trips: [],
+    ascentRate: 9,
+    ascentTrip: null,
+    safetyStopDuration: 3,
+    safetyStopTrip: null,
   },
 };
 
 export function rootReducer(rootState, action) {
   switch (action.type) {
+    case 'navigation/setPage':
+      return {
+        ...rootState,
+        navigation: {
+          activePage: action.payload,
+        },
+      };
     case 'planTank/setTank':
       return {
         ...rootState,
@@ -38,24 +50,41 @@ export function rootReducer(rootState, action) {
         },
       };
 
+    case 'planDive/addTrip':
+      return {
+        ...rootState,
+        planDive: {
+          ...rootState.planDive,
+          trips: [...rootState.planDive.trips, action.payload],
+        },
+      };
+
+    case 'planDive/removeTrip':
+      return {
+        ...rootState,
+        planDive: {
+          ...rootState.planDive,
+          trips: rootState.planDive.trips.filter((_, index) => index !== action.payload),
+        },
+      };
+
+    case 'planDive/updateAscent':
+      return {
+        ...rootState,
+        planDive: {
+          ...rootState.planDive,
+          ascentRate: action.payload.ascentRate,
+          ascentTrip: action.payload.ascentTrip,
+        },
+      };
+
     case 'planDive/updateSafetyStop':
       return {
         ...rootState,
         planDive: {
           ...rootState.planDive,
           safetyStopDuration: action.payload.safetyStopDuration,
-          trips: rootState.planDive.trips.slice(0, -1).concat(action.payload.safetyStop),
-        },
-      };
-
-    case 'planDive/addTrip':
-      const { safetyStop, safetyStopDuration, rmv, trip } = action.payload;
-      return {
-        ...rootState,
-        planDive: {
-          safetyStopDuration,
-          rmv,
-          trips: rootState.planDive.trips.slice(0, -1).concat(trip).concat(safetyStop),
+          safetyStopTrip: action.payload.safetyStop,
         },
       };
 
