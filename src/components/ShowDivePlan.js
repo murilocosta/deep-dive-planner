@@ -26,7 +26,7 @@ import DivePlanTripChart from "./DivePlanTripChart";
 import RootStepper from "./RootStepper";
 
 function convertMinutesToHourFormat(timeInMinutes) {
-  const hour = Math.round(timeInMinutes / 60);
+  const hour = Math.floor(timeInMinutes / 60);
   const minute = Math.round(timeInMinutes % 60);
 
   return String(hour).padStart(2, '0') + ':' + String(minute).padStart(2, '0');
