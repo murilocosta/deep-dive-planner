@@ -26,7 +26,7 @@ export function usePersistedReducer(reducer, initialState, storageKey) {
       const stringifiedState = JSON.stringify(state);
       localStorage.setItem(storageKey, stringifiedState);
     }
-  }, [state]);
+  }, [prevState, state, storageKey]);
 
   return { state, dispatch };
 }

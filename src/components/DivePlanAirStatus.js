@@ -8,7 +8,7 @@ function DivePlanAirStatus({ gasStatus }) {
   const usedReserve = Math.max(reserve - extra, 0);
 
   let color = 'blue.500';
-  if (usedReserve == 0) {
+  if (usedReserve === 0) {
     color = 'red.500';
   } else if (used > available) {
     color = 'orange.500';

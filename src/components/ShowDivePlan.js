@@ -39,8 +39,10 @@ function printIconByType(tripType) {
 
     case 'ascent':
       return <ArrowUpIcon />
+    
+    default:
+      return null;
   }
-  return null;
 }
 
 function ShowDivePlan() {
